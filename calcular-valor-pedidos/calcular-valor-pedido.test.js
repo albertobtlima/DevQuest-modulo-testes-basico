@@ -31,3 +31,16 @@ it("deve cobrar valor de frete quando o valor dos produtos forem menor que 500",
   const resultado = calcularValorPedido(meuPedido);
   expect(resultado).toBe(350);
 });
+
+it("deve cobrar valor de frete caso o valor dos produtos sejem igual a 500", () => {
+  const meuPedido = {
+    itens: [
+      { nome: "Poção de vida", valor: 100 },
+      { nome: "Espada de prata", valor: 400 },
+      { nome: "Entrega", valor: 50, entrega: true },
+    ],
+  };
+
+  const resultado = calcularValorPedido(meuPedido);
+  expect(resultado).toBe(550);
+});
