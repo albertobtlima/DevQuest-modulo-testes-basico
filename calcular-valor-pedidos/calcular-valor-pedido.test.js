@@ -45,11 +45,11 @@ it("deve cobrar valor de frete caso o valor dos produtos sejem igual a 500", () 
   expect(resultado).toBe(550);
 });
 
-/* Caso os estados de entrega sejam RS ou SC, deve ser acrescido um valor de 30% na entrega */
+/* Caso os estados de entrega sejam RS ou SC, deve ser acrescido um valor de 20% na entrega */
 
-it("deve adicionar um acrescimo de 20% no valor da entrega do pedido caso o estado seja RS", () => {
-  const pedidoComEstadoRS = {
-    estado: "RS",
+it("deve adicionar um acrescimo de 20% no valor da entrega do pedido caso o estado seja RS ou SC", () => {
+  const pedidoComEstado = {
+    estado: "SC",
     itens: [
       { nome: "Poção de vida", valor: 100 },
       { nome: "Espada de prata", valor: 400 },
@@ -57,6 +57,20 @@ it("deve adicionar um acrescimo de 20% no valor da entrega do pedido caso o esta
     ],
   };
 
-  const resultado = calcularValorPedido(pedidoComEstadoRS);
+  const resultado = calcularValorPedido(pedidoComEstado);
   expect(resultado).toBe(620);
+});
+
+it("NÃO deve adicionar um acrescimo de 20% no valor da entrega do pedido caso o estado seja SP", () => {
+  const pedidoComEstado = {
+    estado: "SP",
+    itens: [
+      { nome: "Poção de vida", valor: 100 },
+      { nome: "Espada de prata", valor: 400 },
+      { nome: "Entrega", valor: 100, entrega: true },
+    ],
+  };
+
+  const resultado = calcularValorPedido(pedidoComEstado);
+  expect(resultado).toBe(600);
 });
