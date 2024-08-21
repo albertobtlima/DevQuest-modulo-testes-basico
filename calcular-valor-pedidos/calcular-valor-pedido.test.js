@@ -1,5 +1,33 @@
-it("should run test", () => {
+const calcularValorPedido = require("./calcular-valor-pedido");
 
-  // assertion ou asserção
-  expect(true).toBe(true);
+it("não deve cobra valor de frete quando o valor dos produtos for superior a 500", () => {
+  // AAA - 3 passos de criação de um teste
+
+  // Arrange - O objeto de teste
+  const meuPedido = {
+    itens: [
+      { nome: "Poção de vida", valor: 100 },
+      { nome: "Espada de prata", valor: 1000 },
+      { nome: "Entrega", valor: 50, entrega: true },
+    ],
+  };
+
+  // Act - O que vai ser testado
+  const resultado = calcularValorPedido(meuPedido);
+
+  // Assert - Qual o resultado esperado
+  expect(resultado).toBe(1100);
+});
+
+it("deve cobrar valor de frete quando o valor dos produtos forem menor que 500", () => {
+  const meuPedido = {
+    itens: [
+      { nome: "Poção de vida", valor: 100 },
+      { nome: "Espada de prata", valor: 200 },
+      { nome: "Entrega", valor: 50, entrega: true },
+    ],
+  };
+
+  const resultado = calcularValorPedido(meuPedido);
+  expect(resultado).toBe(350);
 });
